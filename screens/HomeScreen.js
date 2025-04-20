@@ -1,11 +1,11 @@
 import { StatusBar } from "expo-status-bar";
-import { View, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { useState, useEffect, useRef } from "react";
-import { getPopularMovies, searchMovies } from "./services/api.js";
-import Header from "./components/Header";
-import SearchBar from "./components/SearchBar";
-import MovieList from "./components/MovieList";
-import Footer from "./components/Footer.jsx";
+import { getPopularMovies, searchMovies } from "../services/api.js";
+import Header from "../components/Header";
+import SearchBar from "../components/SearchBar";
+import MovieList from "../components/MovieList";
+import Footer from "../components/Footer.jsx";
 
 export default function App({ navigation }) {
   const [movies, setMovies] = useState([]);
@@ -78,8 +78,12 @@ export default function App({ navigation }) {
       <StatusBar style="auto" />
       <Header />
       <SearchBar searchQuery={searchQuery} onSearch={handleSearch} />
-      <MovieList movies={movies} loading={loading} onLoadMore={loadNextPage} />
-
+      <MovieList
+        movies={movies}
+        loading={loading}
+        onLoadMore={loadNextPage}
+        onPressMovie={(movie) => navigation.navigate("Details", { movie })}
+      />
       {/* Footer */}
       <Footer
         reloadMovies={reloadMovies}

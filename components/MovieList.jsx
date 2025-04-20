@@ -1,7 +1,14 @@
 import React from "react";
-import { View, Text, FlatList, Image, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 
-const MovieList = ({ movies, loading, onLoadMore }) => {
+const MovieList = ({ movies, loading, onLoadMore, onPressMovie }) => {
   const renderFooter = () => {
     if (loading) {
       return <Text style={styles.loader}>Loading...</Text>;
@@ -14,21 +21,20 @@ const MovieList = ({ movies, loading, onLoadMore }) => {
   };
 
   const renderItem = ({ item }) => (
-    <View style={styles.movieCard}>
-      {/* Imagen de la película */}
-      <Image
-        source={{ uri: `https://image.tmdb.org/t/p/w500${item.poster_path}` }}
-        style={styles.poster}
-      />
-      <View style={styles.movieInfo}>
-        {/* Título */}
-        <Text style={styles.title}>{item.title}</Text>
-        {/* Calificación promedio */}
-        <Text style={styles.rating}>⭐ {item.vote_average.toFixed(1)}</Text>
-        {/* Fecha de lanzamiento */}
-        <Text style={styles.date}>{item.release_date}</Text>
+    <TouchableOpacity onPress={() => onPressMovie(item)}>
+      <View style={styles.movieCard}>
+        {/* Imagen de la película */}
+        <Image
+          source={{ uri: `https://image.tmdb.org/t/p/w500${item.poster_path}` }}
+          style={styles.poster}
+        />
+        <View style={styles.movieInfo}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.rating}>⭐ {item.vote_average.toFixed(1)}</Text>
+          <Text style={styles.date}>{item.release_date}</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
@@ -101,8 +107,8 @@ const styles = StyleSheet.create({
     color: "#000",
     fontWeight: "bold",
     backgroundColor: "#FFD700",
-    padding: 10,
-    margin: 50,
+    padding: 5,
+    margin: 100,
     borderRadius: 20,
     fontSize: 16,
   },

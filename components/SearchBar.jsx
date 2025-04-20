@@ -3,7 +3,7 @@ import { TextInput, StyleSheet, View } from "react-native";
 
 const SearchBar = ({ searchQuery, onSearch }) => {
   return (
-    <View style={{ backgroundColor: "#FFD700" }}>
+    <View style={{ backgroundColor: "7AE2CF" }}>
       <TextInput
         style={styles.searchBar}
         placeholder="Search movies by title..."
@@ -18,7 +18,7 @@ const SearchBar = ({ searchQuery, onSearch }) => {
 const styles = StyleSheet.create({
   searchBar: {
     backgroundColor: "#2A2A2A",
-    marginTop: 0,
+    marginTop: 15,
     margin: 20,
     marginBottom: 10,
     padding: 10,
