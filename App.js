@@ -1,17 +1,18 @@
 import { StatusBar } from "expo-status-bar";
-import { View, StyleSheet } from "react-native";
-import { useState, useEffect } from "react";
+import { View, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
+import { useState, useEffect, useRef } from "react";
 import { getPopularMovies, searchMovies } from "./services/api.js";
-import Constants from "expo-constants";
 import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
 import MovieList from "./components/MovieList";
+import Footer from "./components/Footer.jsx";
 
-export default function App() {
+export default function App({ navigation }) {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const flatListRef = useRef(null); // Referencia para el FlatList
 
   const fetchMovies = async (pageNumber) => {
     try {
@@ -58,6 +59,16 @@ export default function App() {
     }
   };
 
+  const reloadMovies = () => {
+    setMovies([]);
+    setPage(1);
+    fetchMovies(1);
+  };
+
+  const goToTop = () => {
+    flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
+  };
+
   useEffect(() => {
     fetchMovies(page);
   }, []);
@@ -68,6 +79,13 @@ export default function App() {
       <Header />
       <SearchBar searchQuery={searchQuery} onSearch={handleSearch} />
       <MovieList movies={movies} loading={loading} onLoadMore={loadNextPage} />
+
+      {/* Footer */}
+      <Footer
+        reloadMovies={reloadMovies}
+        goToTop={goToTop}
+        goBack={() => navigation?.goBack?.()}
+      />
     </View>
   );
 }
@@ -76,6 +94,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    paddingTop: Constants.statusBarHeight,
   },
 });
