@@ -8,7 +8,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const MovieList = ({ movies, loading, onLoadMore, onPressMovie }) => {
+const MovieList = ({
+  movies,
+  loading,
+  onLoadMore,
+  onPressMovie,
+  isDarkTheme,
+}) => {
   const renderFooter = () => {
     if (loading) {
       return <Text style={styles.loader}>Loading...</Text>;
@@ -38,8 +44,20 @@ const MovieList = ({ movies, loading, onLoadMore, onPressMovie }) => {
   );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title_popular}>Popular Movies</Text>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: isDarkTheme ? "#424242" : "#fff" },
+      ]}
+    >
+      <Text
+        style={[
+          styles.title_popular,
+          { color: isDarkTheme ? "#FFD700" : "#000" },
+        ]}
+      >
+        Popular Movies
+      </Text>
       <FlatList
         data={movies}
         keyExtractor={(item) => `${item.id}`}

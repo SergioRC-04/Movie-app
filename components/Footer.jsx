@@ -1,27 +1,44 @@
 import React from "react";
-import { View, TouchableOpacity, Image, StyleSheet } from "react-native";
+import { View, TouchableOpacity, Image, StyleSheet, Text } from "react-native";
 
-const Footer = ({ reloadMovies, goToTop, goBack }) => {
+const Footer = ({ reloadMovies, goToTop, toggleTheme, isDarkTheme }) => {
   return (
-    <View style={styles.footer}>
+    <View
+      style={[
+        styles.footer,
+        { backgroundColor: isDarkTheme ? "#2A2A2A" : "#FFD700" },
+      ]}
+    >
       {/* Botón para recargar */}
       <TouchableOpacity style={styles.button} onPress={reloadMovies}>
         <Image
-          source={require("../assets/girar.png")} // Asegúrate de tener la imagen en la ruta correcta
+          source={
+            isDarkTheme
+              ? require("../assets/reload_dark.png")
+              : require("../assets/girar.png")
+          }
           style={styles.icon}
         />
       </TouchableOpacity>
       {/* Botón para ir al inicio */}
       <TouchableOpacity style={styles.button} onPress={goToTop}>
         <Image
-          source={require("../assets/hogar.png")} // Asegúrate de tener la imagen en la ruta correcta
+          source={
+            isDarkTheme
+              ? require("../assets/home-dark.png")
+              : require("../assets/hogar.png")
+          }
           style={styles.icon}
         />
       </TouchableOpacity>
-      {/* Botón para retroceder */}
-      <TouchableOpacity style={styles.button} onPress={goBack}>
+      {/* Botón para alternar el tema */}
+      <TouchableOpacity style={styles.button} onPress={toggleTheme}>
         <Image
-          source={require("../assets/flecha-izquierda.png")} // Asegúrate de tener la imagen en la ruta correcta
+          source={
+            isDarkTheme
+              ? require("../assets/sun.png")
+              : require("../assets/luna.png")
+          }
           style={styles.icon}
         />
       </TouchableOpacity>
@@ -46,6 +63,11 @@ const styles = StyleSheet.create({
   icon: {
     width: 25,
     height: 25,
+  },
+  themeText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#000",
   },
 });
 

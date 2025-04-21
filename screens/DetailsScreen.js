@@ -2,20 +2,41 @@ import React from "react";
 import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
 export default function DetailsScreen({ route, navigation }) {
-  const { movie } = route.params;
+  const { movie, isDarkTheme } = route.params;
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: isDarkTheme ? "#424242" : "#fff" }, // Cambia el fondo dinámicamente
+      ]}
+    >
       {/* Header */}
-      <View style={styles.header}>
+      <View
+        style={[
+          styles.header,
+          { backgroundColor: isDarkTheme ? "#2A2A2A" : "#FFD700" },
+        ]}
+      >
         {/* Botón para ir a la página anterior */}
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image
-            source={require("../assets/flecha-izquierda.png")}
+            source={
+              isDarkTheme
+                ? require("../assets/volver-dark.png")
+                : require("../assets/flecha-izquierda.png")
+            }
             style={styles.logo}
           />
         </TouchableOpacity>
-        <Text style={styles.titleHeader}>Movie Details</Text>
+        <Text
+          style={[
+            styles.titleHeader,
+            { color: isDarkTheme ? "#FFD700" : "#000" },
+          ]}
+        >
+          Movie Details
+        </Text>
       </View>
 
       {/* Imagen de la película */}
@@ -24,13 +45,21 @@ export default function DetailsScreen({ route, navigation }) {
         style={styles.poster}
       />
       {/* Título */}
-      <Text style={styles.title}>{movie.original_title}</Text>
+      <Text style={[styles.title, { color: isDarkTheme ? "#fff" : "#000" }]}>
+        {movie.original_title}
+      </Text>
       {/* Calificación */}
       <Text style={styles.rating}>⭐ {movie.vote_average.toFixed(1)}</Text>
       {/* Fecha de lanzamiento */}
-      <Text style={styles.date}>Release Date: {movie.release_date}</Text>
+      <Text style={[styles.date, { color: isDarkTheme ? "#E5E5E5" : "#888" }]}>
+        Release Date: {movie.release_date}
+      </Text>
       {/* Descripción */}
-      <Text style={styles.overview}>{movie.overview}</Text>
+      <Text
+        style={[styles.overview, { color: isDarkTheme ? "#F2F2F2" : "#333" }]}
+      >
+        {movie.overview}
+      </Text>
     </View>
   );
 }
@@ -59,14 +88,13 @@ const styles = StyleSheet.create({
   },
   date: {
     fontSize: 16,
-    color: "#888",
     marginBottom: 20,
     paddingHorizontal: 20,
+    fontWeight: "bold",
   },
   overview: {
     fontSize: 16,
     lineHeight: 24,
-    color: "#333",
     paddingHorizontal: 20,
   },
   header: {

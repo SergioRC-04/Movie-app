@@ -7,11 +7,12 @@ import SearchBar from "../components/SearchBar";
 import MovieList from "../components/MovieList";
 import Footer from "../components/Footer.jsx";
 
-export default function App({ navigation }) {
+export default function HomeScreen({ navigation }) {
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isDarkTheme, setIsDarkTheme] = useState(false); // Estado para el tema
   const flatListRef = useRef(null); // Referencia para el FlatList
 
   const fetchMovies = async (pageNumber) => {
@@ -69,26 +70,43 @@ export default function App({ navigation }) {
     flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
   };
 
+  const toggleTheme = () => {
+    setIsDarkTheme((prevTheme) => !prevTheme); // Alterna entre oscuro y claro
+  };
+
   useEffect(() => {
     fetchMovies(page);
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: isDarkTheme ? "#424242" : "#fff" }, // Cambia el fondo dinámicamente
+      ]}
+    >
       <StatusBar style="auto" />
-      <Header />
-      <SearchBar searchQuery={searchQuery} onSearch={handleSearch} />
+      <Header isDarkTheme={isDarkTheme} />
+      <SearchBar
+        searchQuery={searchQuery}
+        onSearch={handleSearch}
+        isDarkTheme={isDarkTheme}
+      />
       <MovieList
         movies={movies}
         loading={loading}
         onLoadMore={loadNextPage}
-        onPressMovie={(movie) => navigation.navigate("Details", { movie })}
+        onPressMovie={(movie) =>
+          navigation.navigate("Details", { movie, isDarkTheme })
+        }
+        isDarkTheme={isDarkTheme}
       />
       {/* Footer */}
       <Footer
         reloadMovies={reloadMovies}
         goToTop={goToTop}
-        goBack={() => navigation?.goBack?.()}
+        toggleTheme={toggleTheme} // Pasa la función para alternar el tema
+        isDarkTheme={isDarkTheme} // Pasa el estado del tema actual
       />
     </View>
   );
@@ -97,6 +115,5 @@ export default function App({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
   },
 });

@@ -1,11 +1,25 @@
 import React from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
 
-const Header = () => {
+const Header = ({ isDarkTheme }) => {
   return (
-    <View style={styles.container}>
-      <Image source={require("../assets/logo.png")} style={styles.logo} />
-      <Text style={styles.title}>MovieMania</Text>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: isDarkTheme ? "#2A2A2A" : "#FFD700" },
+      ]}
+    >
+      <Image
+        source={
+          isDarkTheme
+            ? require("../assets/logo-dark.png") // Logo para modo oscuro
+            : require("../assets/logo.png") // Logo para modo claro
+        }
+        style={styles.logo}
+      />
+      <Text style={[styles.title, { color: isDarkTheme ? "#FFD700" : "#000" }]}>
+        MovieMania
+      </Text>
     </View>
   );
 };
