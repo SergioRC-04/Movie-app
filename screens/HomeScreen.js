@@ -8,13 +8,23 @@ import MovieList from "../components/MovieList";
 import Footer from "../components/Footer.jsx";
 
 export default function HomeScreen({ navigation }) {
+  // Estado para almacenar las películas
   const [movies, setMovies] = useState([]);
+  // Estado para manejar la paginación
   const [page, setPage] = useState(1);
+  // Estado para manejar el indicador de carga
   const [loading, setLoading] = useState(false);
+  // Estado para almacenar la consulta de búsqueda
   const [searchQuery, setSearchQuery] = useState("");
-  const [isDarkTheme, setIsDarkTheme] = useState(false); // Estado para el tema
-  const flatListRef = useRef(null); // Referencia para el FlatList
+  // Estado para manejar el tema (oscuro o claro)
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  // Referencia para el FlatList (para desplazarse al inicio)
+  const flatListRef = useRef(null);
 
+  /**
+   * Obtiene las películas populares desde la API.
+   * @param {number} pageNumber - Número de página para la paginación.
+   */
   const fetchMovies = async (pageNumber) => {
     try {
       setLoading(true);
@@ -33,6 +43,10 @@ export default function HomeScreen({ navigation }) {
     }
   };
 
+  /**
+   * Maneja la búsqueda de películas.
+   * @param {string} query - Término de búsqueda.
+   */
   const handleSearch = async (query) => {
     setSearchQuery(query);
     if (query.trim() === "") {
@@ -52,6 +66,9 @@ export default function HomeScreen({ navigation }) {
     }
   };
 
+  /**
+   * Carga la siguiente página de películas populares.
+   */
   const loadNextPage = () => {
     if (searchQuery.trim() === "") {
       const nextPage = page + 1;
@@ -60,16 +77,25 @@ export default function HomeScreen({ navigation }) {
     }
   };
 
+  /**
+   * Recarga las películas populares desde la primera página.
+   */
   const reloadMovies = () => {
     setMovies([]);
     setPage(1);
     fetchMovies(1);
   };
 
+  /**
+   * Desplaza la lista de películas al inicio.
+   */
   const goToTop = () => {
     flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
   };
 
+  /**
+   * Alterna entre el modo oscuro y el modo claro.
+   */
   const toggleTheme = () => {
     setIsDarkTheme((prevTheme) => !prevTheme); // Alterna entre oscuro y claro
   };
@@ -86,12 +112,15 @@ export default function HomeScreen({ navigation }) {
       ]}
     >
       <StatusBar style="auto" />
+      {/* Encabezado */}
       <Header isDarkTheme={isDarkTheme} />
+      {/* Barra de búsqueda */}
       <SearchBar
         searchQuery={searchQuery}
         onSearch={handleSearch}
         isDarkTheme={isDarkTheme}
       />
+      {/* Lista de películas */}
       <MovieList
         movies={movies}
         loading={loading}
@@ -105,8 +134,8 @@ export default function HomeScreen({ navigation }) {
       <Footer
         reloadMovies={reloadMovies}
         goToTop={goToTop}
-        toggleTheme={toggleTheme} // Pasa la función para alternar el tema
-        isDarkTheme={isDarkTheme} // Pasa el estado del tema actual
+        toggleTheme={toggleTheme}
+        isDarkTheme={isDarkTheme}
       />
     </View>
   );

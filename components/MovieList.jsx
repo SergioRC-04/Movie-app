@@ -8,6 +8,17 @@ import {
   TouchableOpacity,
 } from "react-native";
 
+/**
+ * Componente MovieList
+ * Muestra una lista de películas populares con un diseño de tarjetas.
+ * Cambia dinámicamente el estilo según el tema (oscuro o claro).
+ *
+ * @param {Array} movies - Lista de películas a mostrar.
+ * @param {boolean} loading - Indica si se están cargando más películas.
+ * @param {function} onLoadMore - Función para cargar más películas.
+ * @param {function} onPressMovie - Función que se ejecuta al presionar una película.
+ * @param {boolean} isDarkTheme - Indica si el tema actual es oscuro.
+ */
 const MovieList = ({
   movies,
   loading,
@@ -15,6 +26,10 @@ const MovieList = ({
   onPressMovie,
   isDarkTheme,
 }) => {
+  /**
+   * Renderiza el pie de lista (footer) con un botón para cargar más películas.
+   * Muestra un indicador de carga si `loading` es verdadero.
+   */
   const renderFooter = () => {
     if (loading) {
       return <Text style={styles.loader}>Loading...</Text>;
@@ -26,6 +41,10 @@ const MovieList = ({
     );
   };
 
+  /**
+   * Renderiza cada elemento de la lista de películas.
+   * @param {Object} item - Objeto que representa una película.
+   */
   const renderItem = ({ item }) => (
     <TouchableOpacity onPress={() => onPressMovie(item)}>
       <View style={styles.movieCard}>
@@ -63,7 +82,7 @@ const MovieList = ({
         keyExtractor={(item) => `${item.id}`}
         renderItem={renderItem}
         ListFooterComponent={renderFooter}
-        contentContainerStyle={{ paddingBottom: 20 }} // Espacio adicional para el botón
+        contentContainerStyle={{ paddingBottom: 20 }}
       />
     </View>
   );
@@ -71,7 +90,7 @@ const MovieList = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Asegura que el contenedor ocupe todo el espacio disponible
+    flex: 1,
     backgroundColor: "#fff",
     marginBottom: 30,
   },
@@ -107,7 +126,7 @@ const styles = StyleSheet.create({
   },
   rating: {
     fontSize: 16,
-    color: "#FFD700", // Color dorado para las estrellas
+    color: "#FFD700",
     marginBottom: 5,
   },
   date: {

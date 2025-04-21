@@ -1,6 +1,13 @@
 import React from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
 
+/**
+ * Componente Header
+ * Muestra el encabezado de la aplicación con un logo y un título.
+ * Cambia dinámicamente el estilo y el logo según el tema (oscuro o claro).
+ *
+ * @param {boolean} isDarkTheme - Indica si el tema actual es oscuro.
+ */
 const Header = ({ isDarkTheme }) => {
   return (
     <View
@@ -9,11 +16,12 @@ const Header = ({ isDarkTheme }) => {
         { backgroundColor: isDarkTheme ? "#2A2A2A" : "#FFD700" },
       ]}
     >
+      {/* Logo dinámico según el tema */}
       <Image
         source={
           isDarkTheme
-            ? require("../assets/logo-dark.png") // Logo para modo oscuro
-            : require("../assets/logo.png") // Logo para modo claro
+            ? require("../assets/logo-dark.png")
+            : require("../assets/logo.png")
         }
         style={styles.logo}
       />
@@ -26,19 +34,19 @@ const Header = ({ isDarkTheme }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row", // Alinea los elementos horizontalmente
-    alignItems: "center", // Centra verticalmente
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 0,
     paddingTop: 40,
     padding: 20,
     paddingBottom: 10,
-    backgroundColor: "#FFD700", // Color de fondo
+    backgroundColor: "#FFD700",
   },
   logo: {
-    width: 40, // Ancho del logo
-    height: 40, // Alto del logo
+    width: 40,
+    height: 40,
     marginRight: 10,
-    borderRadius: 15, // Hace que el logo sea circular
+    borderRadius: 15,
   },
   title: {
     fontSize: 24,

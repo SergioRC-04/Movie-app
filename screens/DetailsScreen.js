@@ -8,7 +8,7 @@ export default function DetailsScreen({ route, navigation }) {
     <View
       style={[
         styles.container,
-        { backgroundColor: isDarkTheme ? "#424242" : "#fff" }, // Cambia el fondo dinámicamente
+        { backgroundColor: isDarkTheme ? "#424242" : "#fff" },
       ]}
     >
       {/* Header */}
@@ -98,19 +98,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   header: {
-    flexDirection: "row", // Alinea los elementos horizontalmente
-    alignItems: "center", // Centra verticalmente
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 0,
     paddingTop: 40,
     padding: 20,
     paddingBottom: 10,
-    backgroundColor: "#FFD700", // Color de fondo
+    backgroundColor: "#FFD700",
   },
   logo: {
-    width: 20, // Ancho del logo
-    height: 20, // Alto del logo
+    width: 20,
+    height: 20,
     marginRight: 10,
-    borderRadius: 15, // Hace que el logo sea circular
+    borderRadius: 15,
   },
   titleHeader: {
     fontSize: 24,
