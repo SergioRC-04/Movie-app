@@ -47,3 +47,5 @@ TMDB_API_KEY=tu_api_key_aqui
 ```bash
 npx expo start
 ```
+
+> ⚠️ **Nota:** Por motivos de esta práctica, la cual corresponde a una prueba técnica para una vacante laboral, se ha dejado **temporalmente visible** la API Key de TMDb dentro del código. Esto es con el objetivo de **facilitar la ejecución y revisión del proyecto** por parte del evaluador. En un entorno de producción, esta clave debe mantenerse privada y no debe subirse al repositorio público.
